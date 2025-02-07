@@ -1,19 +1,15 @@
-hello(goodbye);
+sum(displayConsole, 1 , 2);
 
-function hello(callback) {
-    console.log("hello");
-
-    callback();
+function sum(callback, x, y){
+    let result = x + y;
+    callback(result);
 }
 
-function leave() {
-    console.log("leave");
+function displayConsole(result){
+    console.log("result")
 }
 
-function wait() {
-    console.log("wait");
+function displayPage(result){
+    console.log(result);
 }
 
-function goodbye() {
-    console.log("goodbye");
-}
