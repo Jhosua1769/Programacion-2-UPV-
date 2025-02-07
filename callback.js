@@ -6,6 +6,14 @@ function hello(callback) {
     callback();
 }
 
+function leave() {
+    console.log("leave");
+}
+
+function wait() {
+    console.log("wait");
+}
+
 function goodbye() {
     console.log("goodbye");
 }
