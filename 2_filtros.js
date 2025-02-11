@@ -45,4 +45,7 @@ console.log(s);
 // suma los numeros que sean divisibles entre 3
 
 // ¿Es asíncrona la función sumar()
-// tengo entendido que debido a que no 
+// tengo entendido que no debido a que no tiene tiempo configurado
+
+// ¿Por qué cuando una función recibe un callback, éste no aparece en el diseño?
+// pendiente a preguntar
