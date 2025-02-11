@@ -85,3 +85,5 @@ A = Trapecio(0,1, 5, fi, f);
 
 console.log(A);
 
+//prueba automatica
+
