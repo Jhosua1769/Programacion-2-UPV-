@@ -27,7 +27,7 @@ function Trapecio(a, b, n, fi, f){
         xi = fi(a, i, Ax);
         xi2 = fi(a, i+1, Ax);
         
-        A = A + ((  Ax*f(xi) * f(xi2)  ) /2  );
+        A = A + (  Ax*(f(xi) * f(xi2)  ) /2  );
 
         console.log("A:", i," ",A);
         
@@ -83,7 +83,11 @@ function f(x){
 
 A = Trapecio(0,1, 5, fi, f);
 
-console.log(A);
 
 //prueba automatica
+if(A != 0.16000000000000003){
+    console.log("error");
+}
+
+
 
