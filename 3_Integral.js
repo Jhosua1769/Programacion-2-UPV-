@@ -28,6 +28,8 @@ function Trapecio(a, b, n, fi, f){
         xi2 = fi(a, i+1, Ax);
         
         A = A + ((  Ax*f(xi) * f(xi2)  ) /2  );
+
+        console.log("A:", i," ",A);
         
     }
 
@@ -73,7 +75,7 @@ function fi(a, i, Ax){
 
 function f(x){
 
-    return dx;
+    return x;
 }
 
 
