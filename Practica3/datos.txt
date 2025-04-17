@@ -1,0 +1,4 @@
+[
+  { "hora": "10:00", "temperatura": 20 },
+  { "hora": "11:00", "temperatura": 22 }
+]
