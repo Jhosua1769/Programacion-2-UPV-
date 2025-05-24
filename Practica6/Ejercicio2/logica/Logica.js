@@ -96,6 +96,27 @@ module.exports = class Logica {
 
 
     // .................................................................
+    // datos:{dni:Texto, codigo:Texto}
+    // -->
+    // insertarMatricula() -->
+    // .................................................................
+
+    insertarMatricula( datos ) {
+        var textoSQL =
+        'insert into Matricula values( $dni, $codigo);'
+        var valoresParaSQL = { $dni: datos.dni, $codigo: datos.codigo}
+
+        return new Promise( (resolver, rechazar) => {
+
+            this.laConexion.run( textoSQL, valoresParaSQL, function( err ) {
+                ( err ? rechazar(err) : resolver() )
+            })
+
+        })
+    } // ()
+
+
+    // .................................................................
     // dni:Texto
     // -->
     // buscarPersonaPorDNI() <--
@@ -137,6 +158,31 @@ module.exports = class Logica {
             })
 
         })
+    } // ()
+
+
+    // .................................................................
+    // apellidos:Texto
+    // -->
+    // buscarMatriculasConApellidos() <--
+    // <--
+    // [{dni: texto, codigo:texto}]
+    // .................................................................
+    buscarMatriculasConApellidos(apellidos) {
+        var textoSQL = `
+            SELECT m.dni, m.codigo 
+            FROM Matricula m
+            JOIN Persona p ON m.dni = p.dni
+            WHERE p.apellidos = $apellidos;
+        `;
+        var valoresParaSQL = { $apellidos: apellidos };
+
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                });
+        });
     } // ()
 
     // .................................................................
