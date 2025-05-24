@@ -164,27 +164,45 @@ module.exports = class Logica {
     // .................................................................
     // apellidos:Texto
     // -->
-    // buscarMatriculasConApellidos() <--
+    // buscarAsignaturasConApellidos() <--
     // <--
-    // [{dni: texto, codigo:texto}]
+    // [{codigo: texto}]
+    //
+    // códigos de asignatura en que una persona está matriculada
     // .................................................................
-    buscarMatriculasConApellidos(apellidos) {
-        var textoSQL = `
-            SELECT m.dni, m.codigo 
-            FROM Matricula m
-            JOIN Persona p ON m.dni = p.dni
-            WHERE p.apellidos = $apellidos;
-        `;
+    buscarAsignaturasConApellidos(apellidos) {
+        var textoSQL = "SELECT DISTINCT m.codigo FROM Matricula m JOIN Persona p ON m.dni = p.dni WHERE p.apellidos = $apellidos";
         var valoresParaSQL = { $apellidos: apellidos };
 
         return new Promise((resolver, rechazar) => {
             this.laConexion.all(textoSQL, valoresParaSQL,
                 (err, res) => {
                     (err ? rechazar(err) : resolver(res))
-                });
+                }
+            );
         });
     } // ()
 
+
+    // .................................................................
+    // dni:Texto
+    // -->
+    // buscarMatriculasConDNI() <--
+    // <--
+    // [{dni: texto, codigo:texto}]
+    // .................................................................
+    buscarMatriculasConDNI(dni) {
+        var textoSQL = "SELECT dni, codigo FROM Matricula WHERE dni = $dni";
+        var valoresParaSQL = { $dni: dni };
+
+        return new Promise((resolver, rechazar) => {
+            this.laConexion.all(textoSQL, valoresParaSQL,
+                (err, res) => {
+                    (err ? rechazar(err) : resolver(res))
+                }
+            );
+        });
+    } // ()
     // .................................................................
     // cerrar() -->
     // .................................................................

@@ -1,8 +1,9 @@
 // ........................................................
 // mainTest1.js
 // ........................................................
-
 const Logica = require( "../Logica.js" )
+
+
 var assert = require ('assert')
 const path = require('path');
 
@@ -52,13 +53,13 @@ describe( "Test 1: insertar una persona", function() {
     async function() {
 
         await laLogica.insertarPersona(
-        {dni: "1234A", nombre: "Pepe",
-        apellidos: "García Pérez" } )
+        {dni: "1239A", nombre: "Josue",
+        apellidos: "Bellota Ichaso" } )
 
-        var res = await laLogica.buscarPersonaConDNI( "1234A" )
+        var res = await laLogica.buscarPersonaConDNI( "1239A" )
         assert.equal( res.length, 1, "¿no hay un resulado?" )
-        assert.equal( res[0].dni, "1234A", "¿no es 1234A?" )
-        assert.equal( res[0].nombre, "Pepe", "¿no es Pepe?" )
+        assert.equal( res[0].dni, "1239A", "¿no es 1234A?" )
+        assert.equal( res[0].nombre, "Josue", "¿no es Pepe?" )
 
     }) // it
 
@@ -72,7 +73,7 @@ describe( "Test 1: insertar una persona", function() {
         try {
 
             await laLogica.insertarPersona(
-            {dni: "1234A", nombre: "Pepa",
+            {dni: "1239A", nombre: "Pepa",
             apellidos: "Pérez Pérez" } )
 
         } catch( err ) {
@@ -121,6 +122,63 @@ describe( "Test 1: insertar una persona", function() {
         assert( error, "¿Ha insertado el codigo de una asignatura existente?" )
 
     }) // it
+
+
+    // ....................................................
+    // ....................................................
+    it( "puedo insertar una Matricula",
+
+    async function() {
+
+        await laLogica.insertarMatricula(
+        {dni: "1239A", codigo: "12345"} )
+
+        var res = await laLogica.buscarMatriculasConDNI( "1239A" )
+        assert.equal( res.length, 1, "¿no hay un resulado?" )
+        assert.equal( res[0].dni, "1239A", "dni encontrado" )
+        assert.equal( res[0].codigo, "12345", "codigo encontrado" )
+
+    }) // it
+
+
+    // ....................................................
+    // ....................................................
+
+    it( "no puedo insertar una Matricula con DNI que ya existe",
+    async function() {
+
+        var error = null
+        try {
+
+            await laLogica.insertarMatricula(
+            {dni: "1239A", codigo: "12344"} )
+
+        } catch( err ) {
+
+            error = err
+        }
+        assert( error, "¿Ha insertado el codigo de una asignatura existente?" )
+
+    }) // it
+
+
+
+    // ....................................................
+    // ....................................................
+
+    it( "puedo buscar codigo de asignaturas matriculadas por una persona por apellidos",
+
+    async function() {
+
+        await laLogica.buscarAsignaturasConApellidos(
+        {apellidos: "Bellota Ichaso"} )
+
+        var res = await laLogica.buscarMatriculasConDNI( "1239A" )
+        assert.equal( res.length, 1, "¿no hay un resulado?" )
+        assert.equal( res[0].codigo, "12345", "codigo encontrado" )
+
+    }) // it
+
 
 
     // ....................................................
