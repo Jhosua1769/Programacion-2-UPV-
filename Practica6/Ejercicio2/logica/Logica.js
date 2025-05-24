@@ -73,6 +73,28 @@ module.exports = class Logica {
         })
     } // ()
 
+
+    // .................................................................
+    // datos:{codigo:Texto, nombre:Texto, creditos:Texto}
+    // -->
+    // insertarAsignatura() -->
+    // .................................................................
+
+    insertarAsignatura( datos ) {
+        var textoSQL =
+        'insert into Asignatura values( $codigo, $nombre, $creditos);'
+        var valoresParaSQL = { $codigo: datos.codigo, $nombre: datos.nombre, $creditos: datos.creditos}
+
+        return new Promise( (resolver, rechazar) => {
+
+            this.laConexion.run( textoSQL, valoresParaSQL, function( err ) {
+                ( err ? rechazar(err) : resolver() )
+            })
+
+        })
+    } // ()
+
+
     // .................................................................
     // dni:Texto
     // -->
@@ -84,6 +106,28 @@ module.exports = class Logica {
 
         var textoSQL = "select * from Persona where dni=$dni";
         var valoresParaSQL = { $dni: dni }
+
+        return new Promise( (resolver, rechazar) => {
+
+            this.laConexion.all( textoSQL, valoresParaSQL,
+            ( err, res ) => {
+            ( err ? rechazar(err) : resolver(res) )
+            })
+
+        })
+    } // ()
+
+    // .................................................................
+    // dni:Texto
+    // -->
+    // buscarAsignaturaConCodigo() <--
+    // <--
+    // {dni:Texto, nombre:Texto: creditos:Texto}
+    // .................................................................
+    buscarAsignaturaConCodigo( codigo ) {
+
+        var textoSQL = "select * from Asignatura where codigo=$codigo";
+        var valoresParaSQL = { $codigo: codigo }
 
         return new Promise( (resolver, rechazar) => {
 
